@@ -8,6 +8,6 @@ var respecConfig = {
     }
   ],
   processVersion: 2019,
-  edDraftURI: "https://w3c.github.io/dxwg/dcat-implementation-report/",
+  edDraftURI: "https://w3c.github.io/dxwg/ir-vocab-dcat-2/",
   shortName: "ir-vocab-dcat-2"
 };
