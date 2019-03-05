@@ -181,7 +181,7 @@ Accept: text/turtle;q=0.9;profile="urn:example:profile-1",
 	text/turtle;q=0.7;profile="urn:example:profile-2"
 
 HTTP/1.1 200 OK
-Content-Type: text/turtle;profile=<urn:example:profile-2>
+Content-Type: text/turtle;profile=&lt;urn:example:profile-2&gt;
 </pre>
     <p>During TPAC 2018 in Lyon, the DXWG had a longer discussion with the JSON-LD WG
 	and it was concluded that the “profile” parameter in the <code>Accept</code> and <code>Content-Type</code>
@@ -189,7 +189,7 @@ Content-Type: text/turtle;profile=<urn:example:profile-2>
 	such as the JSON-LD profiles "expanded" (<code>http://www.w3.org/ns/json-ld#expanded</code>) or
 	"flattened" (<code>http://www.w3.org/ns/json-ld#flattened</code>).
 	In order to signal the use of media-type-independent profiles,
-	the http header fields </code>Accept-Profile</code> and <code>Content-Profile</code> are to be used.</p>
+	the http header fields <code>Accept-Profile</code> and <code>Content-Profile</code> are to be used.</p>
     <h4>Using a Link-header with rel=”profile” (RFC 6906)</h4>
     <p>The HTTP Link header field [[RFC 8288]] relates a web resource (Link Context)
 	to a target resource (Link Target
