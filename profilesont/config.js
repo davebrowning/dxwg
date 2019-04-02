@@ -24,6 +24,18 @@ var respecConfig = {
         {
           value: "Simon Cox",
           href: "http://people.csiro.au/Simon-Cox"
+        },
+        {
+          value: "Karen Coyle"
+        },
+        {
+          value: "Antoine Isaac"
+        },
+        {
+          value: "Andrea Perego"
+        },
+        {
+          value: "Makx Dekkers"
         }
       ]
     }],
