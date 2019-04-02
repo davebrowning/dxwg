@@ -1,1 +1,64 @@
-# this file will contain SHACL rules for validating profiledesc instances
+# This file contains constraints, written in the SHACL constraints language, that allow resources to be validated
+# against the Profiles Vocabulary's profile.
+
+# This resource is part of the Profile Vocabulary's profile declaration and is termed, according to the Profiles
+# Vocabulary itself, an rdfs:Resource. Metadata about ths file - what role it plays in the Profiles Vocabulary's profile
+# etc. is contained in the Profile Vocabulary's main profile file which is profile.ttl in this directory.
+
+
+@prefix : <http://www.w3.org/ns/dx/prof/full-constraints.ttl#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+
+:ProfileShape
+    a sh:NodeShape ;
+    sh:targetClass prof:Profile ;
+    rdfs:label "A Shape to test instances of Profile" ;
+    sh:property [
+        sh:path prof:hasResource ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Profile has the prof:hasResource property, it must indicate an instance of prof:ResourceDescriptor" ;
+    ] ;
+.
+
+:ResourceDescriptorShape
+    a sh:NodeShape ;
+    sh:targetClass prof:ResourceDescriptor ;
+    rdfs:label "A Shape to test instances of Resource Descriptor" ;
+    sh:property [
+        sh:path prof:hasRole ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Resource Descriptor has the prof:hasRole property, it must indicate an instance of prof:ResourceRole" ;
+    ] ;
+    sh:property [
+        sh:path dct:format ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Resource Descriptor has the dct:format property, it must indicate an instance of dct:MediaTypeOrExtent" ;
+    ] ;
+    sh:property [
+        sh:path dct:conformsTo ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Resource Descriptor has the dct:conformsTo property, it must indicate an instance of dct:Standard" ;
+    ] ;
+    sh:property [
+        sh:path prof:isInheritedFrom ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Resource Descriptor has the prof:isInheritedFrom property, it must indicate an instance of prof:Profile" ;
+    ] ;
+    sh:property [
+        sh:path prof:hasArtifact ;
+        sh:datatype prof:ResourceDescriptor ;
+        sh:name "has resource" ;
+        rdfs:comment "If a Resource Descriptor has the prof:hasArtifact property, it must indicate an instance of rdf:Resource" ;
+    ] ;
+.

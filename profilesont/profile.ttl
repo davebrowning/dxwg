@@ -13,7 +13,7 @@
 	prof:hasToken "prof" ;
 	rdfs:label "The Profiles Ontology" ;
 	prof:isProfileOf owl: , dct: ;
-    prof:hasResource _:1 , _:2 , _:3 , _:4 ;
+    prof:hasResource _:1 , _:2 , _:3 , _:4 , _:5 ;
 .
 
 _:1
@@ -29,20 +29,28 @@ _:2
     dct:conformsTo owl: ;
     dct:format <https://w3id.org/mediatypes/text/turtle> ;
     prof:hasRole roles:specification ;
-    prof:hasArtifact prof: .
+    prof:hasArtifact <http://www.w3.org/ns/dx/prof.rdf> .
 
 _:3
     a prof:ResourceDescriptor ;
-    rdfs:label "Full Constraints in SHACL"@en ;
-    dct:conformsTo <http://www.w3.org/ns/shacl#> ;
+    rdfs:label "Ontology specification document in RDF (Turtle)"@en ;
+    dct:conformsTo owl: ;
     dct:format <https://w3id.org/mediatypes/text/turtle> ;
-    prof:hasRole roles:fullConstraints ;
-    prof:hasArtifact prof:full-constraints.ttl .
+    prof:hasRole roles:specification ;
+    prof:hasArtifact <http://www.w3.org/ns/dx/prof.ttl> .
 
 _:4
+    a prof:ResourceDescriptor ;
+    rdfs:label "Constraints in SHACL"@en ;
+    dct:conformsTo <http://www.w3.org/ns/shacl#> ;
+    dct:format <https://w3id.org/mediatypes/text/turtle> ;
+    prof:hasRole roles:validation ;
+    prof:hasArtifact prof:validation.ttl .
+
+_:5
     a prof:ResourceDescriptor ;
     rdfs:label "Examples of the Profiles Ontology profile in use"@en ;
     dct:conformsTo <http://www.w3.org/ns/shacl#> ;
     dct:format <https://w3id.org/mediatypes/text/turtle> ;
     prof:hasRole roles:examples ;
-    prof:hasArtifact <http://www.w3.org/ns/dx/prof/examples/> .
+    prof:hasArtifact <https://github.com/w3c/dxwg/tree/gh-pages/profilesont/examples> .
