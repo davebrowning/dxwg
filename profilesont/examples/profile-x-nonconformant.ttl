@@ -1,0 +1,50 @@
+@prefix : <http://www.w3.org/ns/dx/prof/profile.ttl#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix roles: <http://www.w3.org/ns/dx/prof/roles/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix eg: <http://example.org/> .
+
+
+<http://www.w3.org/ns/dx/prof/>
+	a owl:Ontology , prof:Profile ;
+	prof:hasToken "prof" ;
+	rdfs:label "Profiles X" ;
+	prof:isProfileOf owl: , dct: ;
+    prof:hasResource _:1 , _:2 ;
+.
+
+_:1
+    a prof:ResourceDescriptor ;
+    rdfs:label "Profile X document"@en ;
+    dct:format <https://w3id.org/mediatypes/text/html> ;
+    prof:hasRole roles:guidance ;
+    prof:hasArtifact <http://example.org/rd/1> .
+
+_:2
+    a prof:ResourceDescriptor ;
+    rdfs:label "Profile X validation constraints"@en ;
+    dct:conformsTo owl: ;
+    dct:format <https://w3id.org/mediatypes/text/turtle> ;
+    prof:hasRole eg:validation ;
+    prof:hasArtifact <http://example.org/rd/2-validation.ttl> .
+
+roles:guidance a prof:ResourceRole .
+
+eg:validation a skos:Concept ; # this is incorrect, it should be a prof:ResourceRole
+                               # which is a sub class of skos:concept
+    skos:prefLabel "Validation" .
+
+<https://w3id.org/mediatypes/text/html> a dct:MediaTypeOrExtent .
+
+<https://w3id.org/mediatypes/text/turtle> a dct:MediaTypeOrExtent .
+
+owl: a dct:Standard .
+
+<http://example.org/rd/1> a rdf:Resource .
+
+<http://example.org/rd/2-validation.ttl>  a rdf:Resource .

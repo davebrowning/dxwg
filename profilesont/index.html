@@ -1324,9 +1324,149 @@ _:4
 <section id="testsuite">
   <h2>Test Suite</h2>
   <p>
-    A software suite is made available to test implementations of this vocabulary for compliance. This suite comprises of
-    [[SHACL]] RDF graph validation templates and instructions for the application of those templates to implementations.
+    A software suite is made available to test implementations of this vocabulary for compliance to this specification.
+    This suite is comprised of [[SHACL]] RDF graph validation templates and instructions for their application.
   </p>
+  <section id="shacl-shapes">
+    <h3>SHACL <em>shapes</em></h3>
+    <p>
+      The SHACL RDF graph validation <em>shapes</em> - individual validators per class of thing being validated - for
+      PROF are all contained in a single RDF (turtle) file, <a href="validation.ttl">validation.ttl</a>.
+    </p>
+    <p>
+      The file contains a <em>shape</em> for all three of the classes defined by PROF:
+      <code><a href="#Class:Profile">Profile</a></code>,
+      <code><a href="#Class:ResourceDescriptor">Resource Descriptor</a></code> &amp;
+      <code><a href="#Class:ResourceRole">Resource Role</a></code>. These <em>shapes</em> check to see that any PROF-described
+      properties defined for instances of these classes have appropriate range values, for example, if an instance of
+      <code>Profile</code> class has a <code><a href="#Property:hasResource">hasResource</a></code> property defined,
+      the range value of it must be an instance of the class <code><a href="#Class:ResourceRole">ResourceRole</a></code>,
+      as per this vocabulary's range constraints.
+    </p>
+  </section>
+  <section id="pyshacl">
+    <h3>Applying the test suite</h3>
+    <p>
+      Any tool provisioned for SHACL validation passing the tests in the SHACL Test Suite and listed in the
+      <a href="https://w3c.github.io/data-shapes/data-shapes-test-suite/">SHACL Test Suite and Implementation Report</a>
+      may be used to test instances of PROF for conformance to this specification using the SHACL <em>shapes</em>
+      described above.
+    </p>
+    <p>
+      An example of such a tool and its use is:
+    </p>
+    <dl>
+      <dt><a href="https://pypi.org/project/pyshacl/">pySHACL</a></dt>
+      <dd>
+        <p>
+          A Python-based, command like SHACL validator,
+          <a href="https://w3c.github.io/data-shapes/data-shapes-test-suite/#pySHACL">listed in the SHACL Test Suite and
+          Implementation Report</a>.
+        </p>
+        <p>
+          pySHACL can be used to validate PROF instance data as a command line application as per it's project page
+          instructions. Typically a user would run a command like this:
+        </p>
+        <p>
+          <code>pyshacl -s /path/to/shapesGraph.ttl -m -i rdfs -f human /path/to/dataGraph.ttl</code><br />where pySHACL
+          is invoked with the <em>shapes</em> graph specified by the <code>-s</code> parameter and the data graph - the
+          instance data being validated - specified as the last parameter. The <code>-i</code> option may be set to
+          specify an inferencing regime, here "rdfs" and the <code>-f</code> parameter may be set to "human" to provide
+          a human-readable validation report.
+        </p>
+      </dd>
+    </dl>
+  </section>
+  <section id="shacl-example">
+    <h3>Example of validation</h3>
+    <p>
+      Example instance data partly describing a dummy profile - Profile X - is given below and also in the RDF (turtle)
+      file <a href="examples/profile-x-nonconformant.ttl">examples/profile-x-nonconformant.ttl</a>. This data is not
+      conformant with PROF since the <code>ResourceDescriptor</code> with identifier <code>_:2</code> contains a
+      <code>hasRole</code> property that links to a <code>skos:Concept</code> class instance where a
+      <code>ResourceRole</code> class instance is required, as specified by this specification's
+      <a href="#Property:hasRole"><code>hasRole</code></a> range value.
+    </p>
+    <pre class="example nohighlight turtle" aria-busy="false" aria-live="polite" title="Example of data conformant with PROF">
+@prefix : &lt;http://www.w3.org/ns/dx/prof/profile.ttl#&gt; .
+@prefix prof: &lt;http://www.w3.org/ns/dx/prof/&gt; .
+@prefix roles: &lt;http://www.w3.org/ns/dx/prof/roles/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix eg: &lt;http://example.org/&gt; .
+
+
+&lt;http://www.w3.org/ns/dx/prof/&gt;
+	a owl:Ontology , prof:Profile ;
+	prof:hasToken "prof" ;
+	rdfs:label "Profiles X" ;
+	prof:isProfileOf owl: , dct: ;
+    prof:hasResource _:1 , _:2 ;
+.
+
+_:1
+    a prof:ResourceDescriptor ;
+    rdfs:label "Profile X document"@en ;
+    dct:format &lt;https://w3id.org/mediatypes/text/html&gt; ;
+    prof:hasRole roles:guidance ;
+    prof:hasArtifact &lt;http://example.org/rd/1&gt; .
+
+_:2
+    a prof:ResourceDescriptor ;
+    rdfs:label "Profile X validation constraints"@en ;
+    dct:conformsTo owl: ;
+    dct:format &lt;https://w3id.org/mediatypes/text/turtle&gt; ;
+    prof:hasRole eg:validation ;
+    prof:hasArtifact &lt;http://example.org/rd/2-validation.ttl&gt; .
+
+roles:guidance a prof:ResourceRole .
+
+eg:validation a skos:Concept ; # this is incorrect, it should be a prof:ResourceRole
+                               # which is a sub class of skos:concept
+    skos:prefLabel "Validation" .
+
+&lt;https://w3id.org/mediatypes/text/html&gt; a dct:MediaTypeOrExtent .
+
+&lt;https://w3id.org/mediatypes/text/turtle&gt; a dct:MediaTypeOrExtent .
+
+owl: a dct:Standard .
+
+&lt;http://example.org/rd/1&gt; a rdf:Resource .
+
+&lt;http://example.org/rd/2-validation.ttl&gt;  a rdf:Resource .
+    </pre>
+    <p>
+      An attempt to validate the example data above with PROF's validation SHACL <em>shapes</em> file at
+      <a href="validation.ttl">validation.ttl</a> with pySHACL can be made like so:
+    </p>
+    <p>
+      <code>pyshacl -s validation.ttl -m -i rdfs -f human examples/profile-x-nonconformant.ttl</code>
+    </p>
+    <p>
+      The above command yields the following validation message indicating a fail:
+    </p>
+    <pre class="example nohighlight turtle" aria-busy="false" aria-live="polite" title="pySHACL results from validation of Example 9 RDF">
+Validation Report
+Conforms: False
+Results (1):
+Constraint Violation in ClassConstraintComponent
+      (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+    Severity: sh:Violation
+    Source Shape: [
+        sh:class prof:ResourceRole ;
+        sh:description Literal("If a Resource Descriptor has the prof:hasRole property,
+                                it must indicate an instance of prof:ResourceRole") ;
+        sh:name Literal("has resource") ; sh:path prof:hasRole
+    ]
+    Focus Node: [ ]
+    Value Node: &lt;http://example.org/validation&gt;
+    Result Path: prof:hasRole
+    </pre>
+  </section>
   <div class="issue" data-number="407"></div>
   <p></p>
 </section>

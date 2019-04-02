@@ -6,8 +6,9 @@
 # etc. is contained in the Profile Vocabulary's main profile file which is profile.ttl in this directory.
 
 
-@prefix : <http://www.w3.org/ns/dx/prof/full-constraints.ttl#> .
+@prefix : <http://www.w3.org/ns/dx/prof/validation.ttl#> .
 @prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -21,9 +22,9 @@
     rdfs:label "A Shape to test instances of Profile" ;
     sh:property [
         sh:path prof:hasResource ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class prof:ResourceDescriptor ;
         sh:name "has resource" ;
-        rdfs:comment "If a Profile has the prof:hasResource property, it must indicate an instance of prof:ResourceDescriptor" ;
+        sh:description "If a Profile has the prof:hasResource property, it must indicate an instance of prof:ResourceDescriptor" ;
     ] ;
 .
 
@@ -33,32 +34,37 @@
     rdfs:label "A Shape to test instances of Resource Descriptor" ;
     sh:property [
         sh:path prof:hasRole ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class prof:ResourceRole ;
         sh:name "has resource" ;
-        rdfs:comment "If a Resource Descriptor has the prof:hasRole property, it must indicate an instance of prof:ResourceRole" ;
+        sh:description "If a Resource Descriptor has the prof:hasRole property, it must indicate an instance of prof:ResourceRole" ;
     ] ;
     sh:property [
         sh:path dct:format ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class dct:MediaTypeOrExtent ;
         sh:name "has resource" ;
-        rdfs:comment "If a Resource Descriptor has the dct:format property, it must indicate an instance of dct:MediaTypeOrExtent" ;
+        sh:description "If a Resource Descriptor has the dct:format property, it must indicate an instance of dct:MediaTypeOrExtent" ;
     ] ;
     sh:property [
         sh:path dct:conformsTo ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class dct:Standard ;
         sh:name "has resource" ;
-        rdfs:comment "If a Resource Descriptor has the dct:conformsTo property, it must indicate an instance of dct:Standard" ;
+        sh:description "If a Resource Descriptor has the dct:conformsTo property, it must indicate an instance of dct:Standard" ;
     ] ;
     sh:property [
         sh:path prof:isInheritedFrom ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class prof:Profile ;
         sh:name "has resource" ;
-        rdfs:comment "If a Resource Descriptor has the prof:isInheritedFrom property, it must indicate an instance of prof:Profile" ;
+        sh:description "If a Resource Descriptor has the prof:isInheritedFrom property, it must indicate an instance of prof:Profile" ;
     ] ;
     sh:property [
         sh:path prof:hasArtifact ;
-        sh:datatype prof:ResourceDescriptor ;
+        sh:class rdf:Resource ;
         sh:name "has resource" ;
-        rdfs:comment "If a Resource Descriptor has the prof:hasArtifact property, it must indicate an instance of rdf:Resource" ;
+        sh:description "If a Resource Descriptor has the prof:hasArtifact property, it must indicate an instance of rdf:Resource" ;
     ] ;
 .
+
+# :DctFormatPropertyShape
+#    a sh:PropertyShape ;
+#    sh:description "Any use of dct:format must have a dct:MediaTypeOrExtent class instance for its range value" ;
+#    sh:path dct:format ;
