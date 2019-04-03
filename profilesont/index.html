@@ -1344,7 +1344,7 @@ _:4
       as per this vocabulary's range constraints.
     </p>
   </section>
-  <section id="pyshacl">
+  <section id="pyshacl" class="informative">
     <h3>Applying the test suite</h3>
     <p>
       Any tool provisioned for SHACL validation passing the tests in the SHACL Test Suite and listed in the
@@ -1377,7 +1377,7 @@ _:4
       </dd>
     </dl>
   </section>
-  <section id="shacl-example">
+  <section id="validation-example" class="informative">
     <h3>Example of validation</h3>
     <p>
       Example instance data partly describing a dummy profile - Profile X - is given below and also in the RDF (turtle)
@@ -1449,7 +1449,7 @@ owl: a dct:Standard .
     <p>
       The above command yields the following validation message indicating a fail:
     </p>
-    <pre class="example nohighlight turtle" aria-busy="false" aria-live="polite" title="pySHACL results from validation of Example 9 RDF">
+    <pre class="example nohighlight" aria-busy="false" aria-live="polite" title="pySHACL results from validation of Example 9 data in plain text">
 Validation Report
 Conforms: False
 Results (1):
@@ -1466,20 +1466,66 @@ Constraint Violation in ClassConstraintComponent
     Value Node: &lt;http://example.org/validation&gt;
     Result Path: prof:hasRole
     </pre>
+
+    <pre class="example nohighlight turtle" aria-busy="false" aria-live="polite" title="pySHACL results from validation of Example 9 data in RDF (turtle)">
+@prefix : &lt;http://www.w3.org/ns/dx/prof/validation.ttl#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix prof: &lt;http://www.w3.org/ns/dx/prof/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+[] a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [
+        a sh:ValidationResult ;
+        sh:focusNode [
+            a rdfs:Resource,
+            prof:ResourceDescriptor ;
+            rdfs:label "Profile X validation constraints"@en ;
+            dct:conformsTo &lt;http://www.w3.org/2002/07/owl#&gt; ;
+            dct:format &lt;https://w3id.org/mediatypes/text/turtle&gt; ;
+            prof:hasArtifact &lt;http://example.org/rd/2-validation.ttl&gt; ;
+            prof:hasRole &lt;http://example.org/validation&gt;
+        ] ;
+        sh:resultPath prof:hasRole ;
+        sh:resultSeverity sh:Violation ;
+        sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+        sh:sourceShape [
+            sh:class prof:ResourceRole ;
+            sh:description "If a Resource Descriptor has the prof:hasRole property,
+                            it must indicate an instance of prof:ResourceRole" ;
+            sh:name "has resource" ;
+            sh:path prof:hasRole
+        ] ;
+        sh:value &lt;http://example.org/validation&gt;
+    ] .
+    </pre>
   </section>
   <div class="issue" data-number="407"></div>
   <p></p>
 </section>
 <section id="implementations" class="informative">
   <h2>Implementations</h2>
-  <p>Implementation conformance reports for this vocabulary are given in:</p>
+  <p>
+    Implementations of PROF are instances of profiles described using PROF. Implementation conformance reports for
+    instances of profiles' data are given in:
+  </p>
   <ul>
     <li>
-      <a href="https://github.com/CSIRO-enviro-informatics/prof-ont-implementation-results">
-        https://github.com/CSIRO-enviro-informatics/prof-ont-implementation-results
+      <a href="https://csiro-enviro-informatics.github.io/prof-implementations/">
+        https://csiro-enviro-informatics.github.io/prof-implementations/
       </a>
     </li>
   </ul>
+  <p>
+    The conformance reports at the repository linked to above are delivered according to
+    <a href="https://www.w3.org/TR/shacl/#validation-report">SHACL's validation report</a> profile, an example of which,
+    is given above in <a href="#validation-example"></a>
+  </p>
   <div class="issue" data-number="467"></div>
   <div class="issue" data-number="409"></div>
 </section>

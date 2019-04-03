@@ -3,8 +3,8 @@ var respecConfig = {
     shortName: "dx-prof",
     edDraftURI: "https://w3c.github.io/dxwg/profilesont/",
     canonicalURI: "TR",
-    implementationReportURI: "https://github.com/CSIRO-enviro-informatics/prof-implementations",
-    testSuiteURI: "https://github.com/CSIRO-enviro-informatics/prof-implementations",
+    implementationReportURI: "https://csiro-enviro-informatics.github.io/prof-implementations/",
+    testSuiteURI: "https://csiro-enviro-informatics.github.io/prof-implementations/",
     editors: [
       {
         name: "Rob Atkinson",
