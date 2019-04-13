@@ -229,7 +229,7 @@ function createReferencesTable() {
 
 function createVocabulariesTable() {
   guidelines = [
-    {"Year": "2018", "Guide": "DCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V01", "GuideURL": "https://joinup.ec.europa.eu/solution/dcat-application-profile-data-portals-europe"},
+    {"Year": "2018", "CitationKey": "DCAT-AP", "Guide": "DCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V01", "GuideURL": "https://joinup.ec.europa.eu/solution/dcat-application-profile-data-portals-europe"},
     {"Year": "2016", "Guide": "GeoDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V02", "GuideURL": "https://joinup.ec.europa.eu/release/geodcat-ap-working-drafts/"},
     {"Year": "2016", "Guide": "StatDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V03", "GuideURL": "https://joinup.ec.europa.eu/solution/statdcat-application-profile-data-portals-europe"},
     {"Year": "2019", "Guide": "Datacite+DCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V04", "GuideURL": "https://joinup.ec.europa.eu/asset/dcat-ap_implementation_guidelines/description"},
@@ -262,7 +262,12 @@ function createVocabulariesTable() {
       var orgId = row.insertCell(row.cells.length);
       orgId.innerHTML = obj['ID'];
       orgId.id = obj['ID'];
-      newCell("<a href="+obj['GuideURL']+">"+obj['Guide']+"</a>" );
+      if (obj['CitationKey'] != '') {
+        newCell("<a href="+obj['GuideURL']+">"+obj['Guide']+"</a>" );
+      }
+      else {
+        newCell("[["+obj['Guide']+"]]" );
+      }
       newCell(obj['Creator']);
       newCell(obj['Country']);
       newCell(obj['Year']);
