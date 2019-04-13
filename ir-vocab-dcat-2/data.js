@@ -230,10 +230,10 @@ function createReferencesTable() {
 function createVocabulariesTable() {
   guidelines = [
     {"Year": "2018", "CitationKey": "DCAT-AP", "Guide": "DCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V01", "GuideURL": "https://joinup.ec.europa.eu/solution/dcat-application-profile-data-portals-europe"},
-    {"Year": "2016", "Guide": "GeoDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V02", "GuideURL": "https://joinup.ec.europa.eu/release/geodcat-ap-working-drafts/"},
-    {"Year": "2016", "Guide": "StatDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V03", "GuideURL": "https://joinup.ec.europa.eu/solution/statdcat-application-profile-data-portals-europe"},
-    {"Year": "2019", "Guide": "Datacite+DCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V04", "GuideURL": "https://joinup.ec.europa.eu/asset/dcat-ap_implementation_guidelines/description"},
-    {"Year": "2015", "Guide": "HCLS-Dataset", "Country": "International", "Creator": "W3C Semantic Web in Health Care and Life Sciences Interest Group", "ID": "V04", "GuideURL": "https://www.w3.org/TR/hcls-dataset/"}
+    {"Year": "2016", "CitationKey": "GeoDCAT-AP", "Guide": "GeoDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V02", "GuideURL": "https://joinup.ec.europa.eu/release/geodcat-ap-working-drafts/"},
+    {"Year": "2016", "CitationKey": "StatDCAT-AP", "Guide": "StatDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V03", "GuideURL": "https://joinup.ec.europa.eu/solution/statdcat-application-profile-data-portals-europe"},
+    {"Year": "2019", "CitationKey": "CiteDCAT-AP", "Guide": "CiteDCAT-AP", "Country": "Europe", "Creator": "European Commission", "ID": "V04", "GuideURL": "https://joinup.ec.europa.eu/asset/dcat-ap_implementation_guidelines/description"},
+    {"Year": "2015", "CitationKey": "HCLS-Dataset", "Guide": "HCLS-Dataset", "Country": "International", "Creator": "W3C Semantic Web in Health Care and Life Sciences Interest Group", "ID": "V04", "GuideURL": "https://www.w3.org/TR/hcls-dataset/"}
 /*    
     {"Year": "not available", "Guide": "Open Data Support training material", "Country": "not available", "Creator": "not available", "ID": "G02", "GuideURL": "https://joinup.ec.europa.eu/community/ods/og_page/training"},
     {"Year": "2016", "Guide": "Linee Guida Nazionali per la Valorizzazione del Patrimonio Informativo Pubblico", "Country": "Italy", "Creator": "Agenzia per l'Italia Digitale", "ID": "G03", "GuideURL": "http://www.dati.gov.it/content/consultazione-sulle-linee-guida-nazionali-valorizzazione-patrimonio-informativo-pubblico"},
@@ -262,7 +262,7 @@ function createVocabulariesTable() {
       var orgId = row.insertCell(row.cells.length);
       orgId.innerHTML = obj['ID'];
       orgId.id = obj['ID'];
-      if (obj['CitationKey'] != '') {
+      if (obj['CitationKey'] == '') {
         newCell("<a href="+obj['GuideURL']+">"+obj['Guide']+"</a>" );
       }
       else {
