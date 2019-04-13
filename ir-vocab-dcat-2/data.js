@@ -277,9 +277,9 @@ function createVocabulariesTable() {
 
 function createGuidelinesTable() {
   guidelines = [
-    {"Year": "2016", "Guide": "DCAT-AP Implementation Guidelines", "Country": "Europe", "Creator": "European Commission", "ID": "G01", "GuideURL": "https://joinup.ec.europa.eu/asset/dcat-ap_implementation_guidelines/description"},
-    {"Year": "2017", "Guide": "Report on DCAT-AP use", "Country": "Europe", "Creator": "European Commission", "ID": "G02", "GuideURL": "https://joinup.ec.europa.eu/document/report-dcat-ap-use"},
-    {"Year": "2017", "Guide": "Analysis of the DCAT-AP extensions", "Country": "Europe", "Creator": "European Commission", "ID": "G03", "GuideURL": "https://joinup.ec.europa.eu/document/national-extensions-analysis-dcat-ap"},
+    {"Year": "2016", "CitationKey": "DCAT-AP-IG", "Guide": "DCAT-AP Implementation Guidelines", "Country": "Europe", "Creator": "European Commission", "ID": "G01", "GuideURL": "https://joinup.ec.europa.eu/asset/dcat-ap_implementation_guidelines/description"},
+    {"Year": "2017", "CitationKey": "DCAT-AP-USE", "Guide": "Report on DCAT-AP use", "Country": "Europe", "Creator": "European Commission", "ID": "G02", "GuideURL": "https://joinup.ec.europa.eu/document/report-dcat-ap-use"},
+    {"Year": "2017", "CitationKey": "DCAT-AP-EXT", "Guide": "Analysis of the DCAT-AP extensions", "Country": "Europe", "Creator": "European Commission", "ID": "G03", "GuideURL": "https://joinup.ec.europa.eu/document/national-extensions-analysis-dcat-ap"},
 /*    
     {"Year": "not available", "Guide": "Open Data Support training material", "Country": "not available", "Creator": "not available", "ID": "G02", "GuideURL": "https://joinup.ec.europa.eu/community/ods/og_page/training"},
     {"Year": "2016", "Guide": "Linee Guida Nazionali per la Valorizzazione del Patrimonio Informativo Pubblico", "Country": "Italy", "Creator": "Agenzia per l'Italia Digitale", "ID": "G03", "GuideURL": "http://www.dati.gov.it/content/consultazione-sulle-linee-guida-nazionali-valorizzazione-patrimonio-informativo-pubblico"},
@@ -308,7 +308,12 @@ function createGuidelinesTable() {
       var orgId = row.insertCell(row.cells.length);
       orgId.innerHTML = obj['ID'];
       orgId.id = obj['ID'];
-      newCell("<a href="+obj['GuideURL']+">"+obj['Guide']+"</a>" );
+      if (obj['GuideURL'] == '') {
+        newCell("<a href="+obj['GuideURL']+">"+obj['Guide']+"</a>" );
+      }
+      else {
+        newCell(obj['Guide']+" [["+obj['CitationKey']+"]]" );
+      }
       newCell(obj['Creator']);
       newCell(obj['Country']);
       newCell(obj['Year']);
