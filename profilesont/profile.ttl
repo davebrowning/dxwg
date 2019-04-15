@@ -12,7 +12,7 @@
 	a owl:Ontology , prof:Profile ;
 	prof:hasToken "prof" ;
 	rdfs:label "The Profiles Ontology" ;
-	prof:isProfileOf owl: , dct: ;
+	prof:isProfileOf dct: ;
     prof:hasResource _:1 , _:2 , _:3 , _:4 ;
 .
 
